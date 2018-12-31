@@ -3,16 +3,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 /****************************************************************************************************
-* Input file have to be in this format: 															*
-*	First line	: price of items seperated with space.						10 20 30 40 50			*
-*	Second line	: weight of items seperated with space.						10 20 30 40 50			*
-*	Third line	: capacity of the knapsack.									10						*
-*																									*
-* First input taken from console is the path of input document.										*
-* Rest of the remaining inputs taken from console are integers so inputs have to be integers.		*
-* Output will be the fittest of the all created individuals.										*
-* However there is an output option that you can see fittest of all populations.					*
-* Second output option is not recommended on big populations										*
+* Input file have to be in this format: 							    *
+*	First line	: price of items seperated with space.		10 20 30 40 50		    *
+*	Second line	: weight of items seperated with space.		10 20 30 40 50	            *
+*	Third line	: capacity of the knapsack.			10			    *
+*												    *
+* First input taken from console is the path of input document.					    *
+* Rest of the remaining inputs taken from console are integers so inputs have to be integers.	    *
+* Output will be the fittest of the all created individuals.					    *
+* However there is an output option that you can see fittest of all populations.		    *
+* Second output option is not recommended on big populations	 				    *
 *****************************************************************************************************/
 
 
