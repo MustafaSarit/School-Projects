@@ -5,7 +5,7 @@ library("readr", lib.loc="~/R/win-library/3.5")
 
 
 
-baby.names <- read.csv("C:/Users/Mustafa/Desktop/WebMining/dataSets/babyNames.csv")
+baby.names <- read.csv("dataSets/babyNames.csv")
 am <- filter(baby.names, 
              Year == 1996 & (Name == "Mustafa" | Name == "Mark"))
 am
