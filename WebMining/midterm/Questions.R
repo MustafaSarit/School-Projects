@@ -1,9 +1,4 @@
 # -----------------   MUGLA SITKI KOCMAN UNIVERSITESI BILGISAYAR MUHENDISLIGI BOLUMU  ---------
-# ----------------------------------   CENG 3528 MIDTERM QUESTIONS   --------------------------
-# -------------------------------------------------------------------------- DATE: 08.04.2019 -
-#  Student ID: 150709027
-
-#  Name: MUSTAFA SARITEMUR
 
 # NOTES:
 # Please use "<-"  sign but not "=" to assign objects
