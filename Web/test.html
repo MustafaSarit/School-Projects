@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+       <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css" />
+        <link rel="stylesheet" href="themes/vsb-1.4.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.min.css" />
+        
+        <!-- Date picker -->
+        <script src="datepicker/jquery.ui.datepicker.min.js"></script>
+        <script src="datepicker/jquery.mobile.datepicker.js"></script>        
+        <link rel="stylesheet" href="datepicker/jquery.mobile.datepicker.css" />
+</head>
+<body>
+         <div data-role="page" data-theme="c" id="page1">
+            <div data-role="header">
+                <h1 id="headertext">ČNB Exchange Rates</h1>
+            </div>
+            <div data-role="content">
+                <form action="http://" method="POST">
+                    <div data-role="fieldcontain">
+                        <label for="czk">CZK</label>
+                        <input type="number" id="czk" name="czk" oninput="update()">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="cur" id="curlabel">CUR</label>
+                        <input type="number" id="cur" name="cur" oninput="update2()">
+                    </div>
+                    <label for="sel" id="sellabel">Currency select</label>
+                    <select id="sel" onchange="getrates()">
+                        <option value="-1">--</option>
+                    </select>                              
+                   <div data-role="controlgroup" data-type="horizontal" align="center">                    
+                    <a data-role="button" data-icon="gear" data-iconpos="left" id="back" data-rel="dialog" onclick="langchange()">Lang</a>                 
+                    <a data-role="button" data-icon="refresh" data-iconpos="left" id="refresh" data-rel="dialog" onclick="refresh()">Refresh</a>                    
+                </div>
+                </form>
+            </div>
+            <div data-role="footer" align="center">
+                <span id="date">Last Exchange Rate Update:</span>
+            </div>
+        </div>
+    <script>
+        var jqxhr = $.ajax({
+            url: "http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php",
+            type: "GET",
+            dataType: 'json',
+       success: parsejson
+       }) 
+       .fail(function(err) {
+            //alert( "Something went wrong: " + err.responseText );
+            alert(" Cound not retrieve exchange rates - Setting backup data ");
+            data = {"date":"2014-03-21","order":"57",
+            "data":[{"country_label":"Australia","curr_label":"dollar","unit":"1","code":"AUD","rate":"18.065"},
+{                   "country_label":"Brazil","curr_label":"real","unit":"1","code":"BRL","rate":"8.554"},
+{                   "country_label":"Bulgaria","curr_label":"lev","unit":"1","code":"BGN","rate":"14.038"},
+{                   "country_label":"Canada","curr_label":"dollar","unit":"1","code":"CAD","rate":"17.787"},
+{                   "country_label":"China","curr_label":"renminbi","unit":"1","code":"CNY","rate":"3.200"},
+{                   "country_label":"Croatia","curr_label":"kuna","unit":"1","code":"HRK","rate":"3.583"},
+{                   "country_label":"Denmark","curr_label":"krone","unit":"1","code":"DKK","rate":"3.678"},
+{                   "country_label":"EMU","curr_label":"euro","unit":"1","code":"EUR","rate":"27.455"},
+{                   "country_label":"Hongkong","curr_label":"dollar","unit":"1","code":"HKD","rate":"2.567"},
+{                   "country_label":"Hungary","curr_label":"forint","unit":"100","code":"HUF","rate":"8.785"},
+{                   "country_label":"IMF","curr_label":"SDR","unit":"1","code":"XDR","rate":"30.781"},
+{                   "country_label":"India","curr_label":"rupee","unit":"100","code":"INR","rate":"32.713"},
+{                   "country_label":"Indonesia","curr_label":"rupiah","unit":"1000","code":"IDR","rate":"1.744"},
+{                   "country_label":"Israel","curr_label":"shekel","unit":"1","code":"ILS","rate":"5.730"},
+{                   "country_label":"Japan","curr_label":"yen","unit":"100","code":"JPY","rate":"19.459"},
+{                   "country_label":"Lithuania","curr_label":"litas","unit":"1","code":"LTL","rate":"7.952"},
+{                   "country_label":"Malaysia","curr_label":"ringgit","unit":"1","code":"MYR","rate":"6.022"},
+{                   "country_label":"Mexico","curr_label":"peso","unit":"1","code":"MXN","rate":"1.503"},
+{                   "country_label":"New Zealand","curr_label":"dollar","unit":"1","code":"NZD","rate":"17.005"},
+{                   "country_label":"Norway","curr_label":"krone","unit":"1","code":"NOK","rate":"3.280"},
+{                   "country_label":"Philippines","curr_label":"peso","unit":"100","code":"PHP","rate":"44.013"},
+{                   "country_label":"Poland","curr_label":"zloty","unit":"1","code":"PLN","rate":"6.541"},
+{                   "country_label":"Romania","curr_label":"new leu","unit":"1","code":"RON","rate":"6.122"},
+{                   "country_label":"Russia","curr_label":"rouble","unit":"100","code":"RUB","rate":"54.891"},
+{                   "country_label":"Singapore","curr_label":"dollar","unit":"1","code":"SGD","rate":"15.628"},
+{                   "country_label":"South Africa","curr_label":"rand","unit":"1","code":"ZAR","rate":"1.831"},
+{                   "country_label":"South Korea","curr_label":"won","unit":"100","code":"KRW","rate":"1.844"},
+{                   "country_label":"Sweden","curr_label":"krona","unit":"1","code":"SEK","rate":"3.101"},
+{                   "country_label":"Switzerland","curr_label":"franc","unit":"1","code":"CHF","rate":"22.535"},
+{                   "country_label":"Thailand","curr_label":"baht","unit":"100","code":"THB","rate":"61.565"},
+{                   "country_label":"Turkey","curr_label":"lira","unit":"1","code":"TRY","rate":"8.899"},
+{                   "country_label":"United Kingdom","curr_label":"pound","unit":"1","code":"GBP","rate":"32.861"},
+{                   "country_label":"USA","curr_label":"dollar","unit":"1","code":"USD","rate":"19.922"}],
+            "labels":["Country","Currency","Amount","Code","Rate"],"lang":"en","cached":false};
+        parsejson(data);
+       });
+       function langchange(){
+         var cur = localStorage.getItem("cur");
+         cur = JSON.parse(cur);
+         
+         var page = "http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php";
+         if(cur.lang==="en"){
+             page += "?lang=cz";
+             $("#headertext").text("ČNB Převodník měn");
+             $("#sellabel").text("Volba měny pro převod");
+         } 
+         else{
+             page += "?lang=en";
+             $("#headertext").text("ČNB Exchange Rates");
+             $("#sellabel").text("Currency select");
+         } 
+         var jqxhr = $.ajax({
+            url: page,
+            type: "GET",
+            dataType: 'json',
+        success: function(cur){
+             $.each(cur.data, function(val) { 
+              $('#sel').children().eq(val+1).text(cur.data[val].country_label + "   -   " + cur.data[val].curr_label + " (" + cur.data[val].code + ")");
+          });
+          
+          $('#sel option:eq(0)').prop('selected', true);
+          $('#sel').selectmenu("refresh", true);
+          //save data to localstorage
+           localStorage.setItem("cur", JSON.stringify(cur));
+          if(cur.lang==="en"){
+             $("#date").text("Last Exchange Rate Update: " + cur.date  + " (" + cur.order + ")");
+         } 
+         else{
+             $("#date").text("Poslední aktualizace kurzů měn: " + cur.date  + " (" + cur.order + ")");
+         } 
+           
+           
+        }
+        })
+        .fail(function(err) {
+            alert( "Something went wrong: " + err.responseText );
+        });
+    }
+       function parsejson(cur){
+          $.each(cur.data, function(value) {   
+            $('#sel')
+                .append($('<option>', value )
+                .attr("value", value)
+                .text(cur.data[value].country_label + "   -   " + cur.data[value].curr_label + " (" + cur.data[value].code + ")"));
+          });
+           //set ER update date
+           $("#date").text("Last Exchange Rate Update: " + cur.date  + " (" + cur.order + ")"); 
+           //save data to localstorage
+           localStorage.setItem("cur", JSON.stringify(cur));
+       }
+       function update(){
+           $("#cur").val(($("#czk").val()/localStorage.getItem("rate"))*localStorage.getItem("unit")); 
+       }
+       function update2(){
+           $("#czk").val(($("#cur").val()*localStorage.getItem("rate"))/localStorage.getItem("unit")); 
+       }
+       function getrates(){
+           //retrieve localstorage data
+           var cur = localStorage.getItem("cur");
+           cur = JSON.parse(cur);
+            $("#curlabel").text(cur.data[$("#sel").val()].code);
+           //set rate and unit
+           localStorage.setItem("rate",cur.data[$("#sel").val()].rate);
+           localStorage.setItem("unit", cur.data[$("#sel").val()].unit);
+           update();
+       }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with local files
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <!--        <script src="js/my_code.js"></script>-->
+        <link rel="stylesheet" href="themes/vsb-1.4.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->
+
+        <!-- Date picker -->
+        <script src="datepicker/jquery.ui.datepicker.min.js"></script>
+        <script src="datepicker/jquery.mobile.datepicker.js"></script>        
+        <link rel="stylesheet" href="datepicker/jquery.mobile.datepicker.css" />
+        <link rel="stylesheet" href="datepicker/jquery.mobile.datepicker.theme.css" />
+
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->
+    </head>
+    <body>
+        <div data-role="page" data-theme="c" id="page1">
+            <div data-role="header" style="background-color: black">
+                <h1 style="color: red">DOOM'S DAY COUNTER</h1>
+            </div><!--header-->
+            <div class="ui-content" role="main">
+                <div data-role="fieldcontain">
+                    <label for="date">Enter the Doom's day date</label>
+                    <input type="datetime-local" id="date"/>
+                    <label for="text">Enter the Doom's day name</label>
+                    <input type="text" id="name" />
+                    <button id="myBtn" onclick="javascript:alert(doSomething())" style="background-color: black; color: red">Submit</button>
+                    
+                    <script>
+                        function doSomething(){
+                            var date = new Date(document.getElementById("date").value);
+                            var name = document.getElementById("name").value;
+                            var curda = new Date();
+                            var count = date - curda;
+                            if((date.getFullYear() === curda.getFullYear()) 
+                                && (date.getDate() === curda.getDate()) 
+                                && (date.getMonth() === curda.getMonth())){
+                                return ("End is close be careful!!!");
+                            }
+                            if(count < 0){
+                                return ("Hurray!!! We survived from " + name);
+                            }else if (count > 0){
+                                var year;
+                                var day;
+                                var minute;
+                                var hour;
+                                count /= 1000;
+                                year = parseInt(count / 31556926);
+                                count %= 31556926 ;
+                                day = parseInt(count / 86400);
+                                count %= 86400;
+                                hour = parseInt(count / 3600);
+                                count %= 3600;
+                                minute = parseInt(count / 60);
+                                return ("We still have " + year + " year(s) " + day 
+                                       + " day(s) " + hour + " hour(s) " + minute + " minute(s) before " + name);
+                            }else{
+                                return ("Enter a Correct date please");
+                            }
+                        };
+                    </script>       
+                </div>
+            </div><!--content-->
+            <div data-role="footer" style="background-color: black">
+                <br/><!--filler, remove-->
+            </div><!--footer-->
+        </div><!--page-->   
+    </body>
+</html>

@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <title>
+            Homework 6
+        </title>
+        <meta charset="utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div class="ui-content" role="main" id='main' style="padding:0;">
+                <canvas id="myCanvas"  width="200" height="100">
+                    <h1>Homeworks 6</h1>
+                </canvas>
+            </div>
+        </div>
+        <script>
+        var height,width;
+        var showDate = true;
+        var date = new Date();
+        var $c = $('#myCanvas');
+        var cidx=0;
+        var colors=[ 'red', 'green', 'blue', 'fuchsia','lime', 'yellow', 'black'];
+        var colorNum = 0;
+
+        window.onmousemove = touchDetect;
+        $(window).resize(resizeScreen);
+        $( document ).ready(function() {
+            resizeScreen();
+            setInterval(function(){
+                incrementSecond(date);
+                reDraw();
+            }, 1000);
+        });
+
+        function touchDetect(event) {
+            var e = event || window.event;	
+            mousePos = { x: e.clientX, y: e.clientY };
+            if(mousePos.x < width/3 && mousePos.y < height/3){
+                date.setHours( date.getHours() + 1 );
+            }else if(mousePos.x > width/3 && mousePos.x <  2*width/3 && mousePos.y < height/3){
+                date.setMinutes( date.getMinutes() + 1 );
+            }else if(mousePos.x > 2* width/3 && mousePos.y < height/3){
+                date.setSeconds( date.getSeconds() + 1 );
+            }else if(mousePos.x < width/3 && mousePos.y > height/3 && mousePos.y < 2*height/3){
+                colorNum = ( ((colorNum - 1) + colors.length) % colors.length )
+            }else if(mousePos.x > width/3 && mousePos.x <  2*width/3 && mousePos.y > height/3 && mousePos.y < 2*height/3){
+                if(showDate){
+                    showDate = false;
+                }else{
+                    showDate = true;
+                }
+            }else if(mousePos.x > 2* width/3 && mousePos.y < 2* height/3 && mousePos.y > height/3){
+                colorNum = ( ((colorNum + 1) + colors.length) % colors.length )
+            }else if(mousePos.x < width/3 && mousePos.y > 2*height/3){
+                date.setHours( date.getHours() - 1 );
+            }else if(mousePos.x > width/3 && mousePos.x <  2*width/3 && mousePos.y > 2*height/3){
+                date.setMinutes( date.getMinutes() - 1 );
+            }else if(mousePos.x > 2* width/3 && mousePos.y > 2*height/3){
+                date.setSeconds( date.getSeconds() - 1 );
+            }
+        }
+
+        function resizeScreen(){
+            width = screen.width;
+            height = screen.height;
+            $c.attr('width', $(window).innerWidth());
+            $c.attr('height', $(window).innerHeight());
+            console.log("size");
+            reDraw();
+        }
+
+        function reDraw(){
+            var ctx = $c.get(0).getContext('2d');
+            var w = ctx.canvas.width;
+            var h = ctx.canvas.height;
+            var r = Math.min(w,h)/2;
+            ctx.lineWidth = 15;
+
+            var blueGrad= ctx.createRadialGradient(w/2, h/2, r - 2*ctx.lineWidth ,w/2 ,h/2 , r - ctx.lineWidth);
+            blueGrad.addColorStop(0, "white");
+            blueGrad.addColorStop(1, "blue");
+            var greenGrad= ctx.createRadialGradient(w/2, h/2, r - 3*ctx.lineWidth ,w/2 ,h/2 , r - 2*ctx.lineWidth);
+            greenGrad.addColorStop(0, "white");
+            greenGrad.addColorStop(1, "green");
+            var redGrad= ctx.createRadialGradient(w/2, h/2, r - 4*ctx.lineWidth ,w/2 ,h/2 , r - 3*ctx.lineWidth);
+            redGrad.addColorStop(0, "white");
+            redGrad.addColorStop(1, "red");
+
+            ctx.clearRect(0, 0, w, h);
+            ctx.beginPath();
+            ctx.strokeStyle=blueGrad;
+            ctx.arc(w/2,h/2, r - ctx.lineWidth , 1.5*Math.PI , (2*Math.PI / 60 * date.getSeconds())  - (Math.PI / 2));
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.strokeStyle=greenGrad;
+            ctx.arc(w/2,h/2,r - 2*ctx.lineWidth, 1.5*Math.PI , (2*Math.PI / 60 * date.getMinutes() ) - (Math.PI / 2));
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.strokeStyle=redGrad;
+            ctx.arc(w/2,h/2,r - 3*ctx.lineWidth, 1.5*Math.PI , (2*Math.PI / 12 * (date.getHours() % 12) ) - (Math.PI / 2));
+            ctx.stroke();
+            ctx.closePath();
+
+            if(showDate){         
+                ctx.fillStyle = colors[colorNum];
+                ctx.font = "30px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("Hello World",w/2,h/2);
+            }
+        }            
+        
+        function incrementSecond(date){date.setSeconds( date.getSeconds() + 1 );}
+            
+        </script>
+    </body>
+</html>

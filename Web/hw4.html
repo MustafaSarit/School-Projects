@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with remote files
+        </title>
+        <meta charset="utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    </head>
+    <body>
+      <div data-role="page" id="page1">
+        <div data-role="header" style="background-color: greenyellow">
+            <h1>Homework 4</h1> 
+        </div><!--header-->
+        <div class="ui-content" role="main">
+
+            <label>Script URL:</label>
+            <input type="text" name="url" value="http://homel.vsb.cz/~mor03/TAMZ/TAMZ.php"/>
+            <label>Login:</label>
+            <input type="text" name="login"/>
+            <button style="background-color: greenyellow" onclick="secretCode()" name="request" >Request Code</button>
+            <label style="display:none" name="secretcodetext" >Secret Code:</label>
+            <input style="display:none" type="text" readonly="true" name="secretcode"/>
+            <button style="display:none; background-color: greenyellow" onclick="testAPI()" name="testApiKey" >Test API Key</button>
+
+        </div><!--content-->
+        <div data-role="footer">
+        </div><!--footer-->
+        <script>
+
+        function secretCode(){
+            var getMethod = $.ajax({
+                 url: $('input[name="url"]').val(),
+                 type: "GET",
+                 data: {login: $('input[name="login"]').val()},
+                 success: function(data) {
+                     $('button[name="request"]').hide();
+                     $('input[name="login"]').prop("readonly", true);
+                     $('input[name="url"]').prop("readonly", true);
+                     $('label[name="secretcodetext"]').show();
+                     $('input[name="secretcode"]').show();
+                     $('input[name="secretcode"]').val(data);
+                     $('button[name="testApiKey"]').show();
+                 }
+                })
+                .fail(function(err) {
+                 alert( "Something went wrong");
+            });
+        }
+
+       function testAPI(){
+            var s2 = btoa($('input[name="login"]').val() + ":" + $('input[name="secretcode"]').val());
+            var getMethod = $.ajax({
+                 url: $('input[name="url"]').val(),
+                 type: "POST",
+                 headers: { "API-Token" : s2 },
+                 success: function(data) {
+                     alert(data);
+                 }
+                })
+                    .fail(function() {
+                     alert( "error" );
+                });
+        }
+        </script>
+      </div><!--page-->   
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Hello world</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <!--        <script src="js/my_code.js"></script>-->
+        <link rel="stylesheet" href="themes/vsb-1.4.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->        
+
+        <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" /> 
+
+        <script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+        <!--    <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+            <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+            <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>-->
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>	
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+
+    </head>
+    <body>    
+        <div data-role="page" id="pageOne" >
+
+            <div data-role="header">
+                <h1>Tamz1 - Hello world</h1>
+            </div>
+
+            <div class="ui-content" role="main">
+                <label for="mydate">Mode: calbox</label>
+                <input name="mydate" id="mydate" type="text" data-role="datebox"
+                       data-options='{"mode": "calbox"}'>
+
+                <label for="mydate">Mode: timebox</label>
+                <input name="mytime" id="mytime" type="text" data-role="datebox"
+                       data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>        
+
+                <a id="linkDialog" href="#dateDialog" data-rel="dialog" data-transition="pop" style='display:none;'></a>
+
+            </div>
+            <div data-role="footer">
+                <h1>Footer Text</h1>
+            </div>
+
+        </div>
+
+        <div data-role="dialog" id="dateDialog" data-title="Date">
+
+            <div data-role="header">
+                <h1>Your date:</h1>
+            </div>
+
+            <div class="ui-content" role="main">
+                <div id="date_text"></div>         
+            </div>
+
+            <div data-role="footer">
+                <a href="#history.back()" data-icon="back" data-role="button" id="back" data-rel="back">Back</a>
+            </div> 
+
+        </div>    
+    </body>    
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with remote files
+        </title>
+        <meta charset="utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    </head>
+    <body>
+      <div data-role="page" id="page1">
+        <div data-role="header" style="background-color: greenyellow">
+            <h1 id="header">Homework 5</h1> 
+        </div><!--header-->
+        <div role="main">
+
+            <label>CZK<input type="number" name="Czk" id="Czk" oninput="calculate()"/></label>
+            <label id="as">Currency</label>
+            <input type="number" id="cur" name="cur" oninput="calculatereverse()"/>
+            
+            <label id="date">Date: </label>
+            <input type="date" name="date" onblur="start()">
+            <button name="lang" id="lang" onclick="change()">Language</button>
+            <button onclick="refresh()" id="refresh">Refresh</button>
+            <div id="list">
+                    <ul lang="en" data-role="listview" data-autodividers="true" data-filter="true" data-inset="true" name="listview"></ul>
+            </div>
+
+        </div><!--content-->
+        <div data-role="footer">
+        </div><!--footer-->
+        <script>
+            var data = [];
+            var lang = "en";
+            function change(){
+                if(lang === "en"){
+                  lang = "cs";
+                  document.getElementById("date").innerHTML = "Datum";
+                  document.getElementById("refresh").innerHTML = "Obnovit";
+                  document.getElementById("header").innerHTML = "Domácí práce 5";
+                  document.getElementById("lang").innerHTML = "Jazyk";
+                  if(document.getElementById("as").innerHTML === "Currency")
+                    document.getElementById("as").innerHTML = "Měna";
+                  if($("input[name='date']").val() !== ""){
+                    start();
+                  };
+                }else if(lang === "cs"){
+                    lang = "en";
+                    document.getElementById("date").innerHTML = "Date";
+                    document.getElementById("header").innerHTML = "Homework 5";
+                    document.getElementById("refresh").innerHTML = "Refresh";
+                    document.getElementById("lang").innerHTML = "Language";
+                    if(document.getElementById("as").innerHTML === "Měna")
+                        document.getElementById("as").innerHTML = "Currency";
+                    if($("input[name='date']").val() !== ""){
+                        start();
+                    };
+                };
+            };
+            function start(){
+                var source = new EventSource('http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php/?sse=y&date=' + $("input[name='date']").val() + "&lang=" + lang);
+                var country = [];
+                source.onmessage = function(e){
+                    localStorage.data = e.data;
+                };
+                setTimeout(function(){
+                    country = JSON.parse(localStorage.data);
+                    data = country.data;
+                    var list = "";
+                    for(i = 0 ; i < data.length ; i++){
+                        list += "<li href=\"#\" onclick=\"selection('" + data[i].code + "')\"  value=\"" + data[i].code + data[i].curr_label + data[i].country_label + "\"><a>" + data[i].code + "-" + data[i].curr_label + "-" + data[i].country_label + "</a></li>";
+                    }               
+                    $('#list').css('display', 'block');
+                    $("ul[name='listview']").html("");
+                    $("ul[name='listview']").append(list).listview("refresh");
+                }, 500);    
+            };
+            var selected;
+            function selection(code){
+                for(i = 0 ; i < data.length ; i++){
+                    if(data[i].code === code){
+                        fill(data[i]);
+                        selected = data[i];
+                        calculate();
+                        break;
+                    }
+                }
+            };
+                
+                function fill(data){
+                    document.getElementById("as").innerHTML = data.code;
+                };
+                function calculate(){
+                    document.getElementById("cur").value = $("input[name='Czk']").val() / (selected.rate/selected.unit);
+                };
+                
+                function calculatereverse(){
+                    document.getElementById("Czk").value = $("input[name='cur']").val() * (selected.rate/selected.unit);
+                }
+                
+                function refresh(){
+                   location.reload();
+                   localStorage.clear();
+                };
+        </script>
+      </div><!--page-->   
+    </body>
+</html>

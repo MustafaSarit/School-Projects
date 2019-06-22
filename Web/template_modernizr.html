@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with remote files
+        </title>
+        <meta charset="utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    </head>
+    <body>
+      <div data-role="page" id="page1">
+        <div data-role="header">
+            <h1>TAMZ1 extended with Modernizr</h1> 
+        </div><!--header-->
+        <div class="ui-content" role="main">
+        </div><!--content-->
+        <div data-role="footer">
+        </div><!--footer-->
+        <script>
+            if (Modernizr.geolocation) {
+                $('#page1 .ui-content').text("Geolocation");
+            }
+        </script>
+      </div><!--page-->   
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with local files
+        </title>
+        <meta charset="utf-8">                
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/jquery.mobile-1.4.5.js"></script>
+<!--        <script src="js/my_code.js"></script>-->
+        <link rel="stylesheet" href="themes/vsb-1.4.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" />
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->
+    </head>
+    <body>    
+    <div data-role="page" data-theme="c" id="page1">
+        <div data-role="header">
+            <h1>TAMZ1 - Hello world </h1>
+        </div><!--header-->
+        <div class="ui-content ui-body-c" role="main">
+            Hello World
+        </div><!--content-->
+        <div data-role="footer">
+            <a data-role="button" data-icon="arrow-r" href="#page2">
+                <img src="icons/cs.png" alt="CZ Flag" /> Česky, prosím</a>            
+        </div><!--footer-->
+    </div><!--page-->   
+    <div data-role="page" data-theme="c" id="page2">
+        <div data-role="header">
+            <h1>TAMZ1 Ahoj světe</h1>
+        </div><!--header-->
+        <div class="ui-content" role="main">
+            Ahoj světe
+        </div><!--content-->
+        <div data-role="footer">
+            <a data-role="button" data-icon="back" data-rel="back" 
+               href="#page1">Zpět</a>            
+        </div><!--footer-->
+    </div><!--page-->   
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with local files
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <!--        <script src="js/my_code.js"></script>-->
+        <link rel="stylesheet" href="themes/vsb-1.4.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->
+
+        <!-- Date picker -->
+        <script src="datepicker/jquery.ui.datepicker.min.js"></script>
+        <script src="datepicker/jquery.mobile.datepicker.js"></script>        
+        <link rel="stylesheet" href="datepicker/jquery.mobile.datepicker.css" />
+        <link rel="stylesheet" href="datepicker/jquery.mobile.datepicker.theme.css" />
+
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->
+    </head>
+    <body>
+        <div data-role="page" data-theme="c" id="page1">
+            <div data-role="header">
+                <h1>TAMZ1 Template</h1>
+            </div><!--header-->
+            <div class="ui-content" role="main">
+                <div data-role="fieldcontain">
+                    <label for="date1">Enter the date (MM/DD/YYYY)</label>
+                    <input type="text" data-role="date" id="date1"/>
+                    <label for="time1">Enter the time (HH:MM)</label>
+                    <input type="text" pattern="(0?[0-9]|1[0-9]|2[0-3])(:[0-5]?[0-9]){1,2}" 
+                           placeholder="hh:mm" id="time1" />      
+                    <script>
+                        $("#time1").attr("type", "time");
+                    </script>
+                </div>
+            </div><!--content-->
+            <div data-role="footer">
+                <br/><!--filler, remove-->
+            </div><!--footer-->
+        </div><!--page-->   
+    </body>
+</html>

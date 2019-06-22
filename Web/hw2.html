@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TAMZ 1 Template with local files
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/jquery.mobile-1.4.5.js"></script>
+<!--        <script src="js/my_code.js"></script>-->
+        <link rel="stylesheet" href="themes/vsb-1.4.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" />
+        <!--<link rel="stylesheet" href="themes/my_theme.css" />-->
+    </head>
+    <body>
+      <div data-role="page" data-theme="c" id="page1">
+        <div data-role="header">
+            <h1>ID RECORDER</h1>
+        </div><!--header-->
+        <div class="ui-content" role="main">
+                <br/><br/><!--filler, remove-->
+                <label for="name">NAME</label>
+                <input type="text" id="name"/>
+                <label for="surna">SURNAME</label>
+                <input type="text" id="surna"/>
+                <label for="age">AGE</label>
+                <input type="text" id="age"/>
+                <label for="birthplace">PLACE OF BIRTH</label>
+                <input type="text" id="plobi"/>
+                <label for="adress">ADDRESS</label>
+                <input type="text" id="address"/>
+                <label for="email">Email</label>
+                <input type="text" id="email"/>
+                <button id="save" onclick="savepe()" style="background-color: white; float: left ; height: 50px; width: 100px; color: black">Save</button>
+                <button id="load" onclick="loadpe()" style="background-color: white; float: left ; height: 50px; width: 100px; color: black">Load</button>
+                
+                <script>
+                    
+                    
+                    if (sessionStorage.name !== undefined) {
+                        document.getElementById("name").value = sessionStorage.name;
+                        document.getElementById("surna").value = sessionStorage.surna;
+                        document.getElementById("age").value = sessionStorage.age;
+                        document.getElementById("plobi").value = sessionStorage.plobi;
+                        document.getElementById("address").value = sessionStorage.address;
+                        document.getElementById("email").value = sessionStorage.email;
+                    }
+
+                    function savepe(){
+                        var person = {name : document.getElementById("name").value,
+                                      surna : document.getElementById("surna").value,
+                                      age : document.getElementById("age").value,
+                                      plobi : document.getElementById("plobi").value,
+                                      address : document.getElementById("address").value,
+                                      email : document.getElementById("email").value
+                        };
+                        
+                        localStorage.name = person.name;
+                        localStorage.surna = person.surna;
+                        localStorage.age = person.age;
+                        localStorage.plobi = person.plobi;
+                        localStorage.address = person.address;
+                        localStorage.email = person.email; 
+                        
+                        sessionStorage.name = person.name;
+                        sessionStorage.surna = person.surna;
+                        sessionStorage.age = person.age;
+                        sessionStorage.plobi = person.plobi;
+                        sessionStorage.address = person.address;
+                        sessionStorage.email = person.email;
+
+                        
+                    };
+                    function loadpe(){
+                        document.getElementById("name").value = localStorage.name;
+                        document.getElementById("surna").value = localStorage.surna;
+                        document.getElementById("age").value = localStorage.age;
+                        document.getElementById("plobi").value = localStorage.plobi;
+                        document.getElementById("address").value = localStorage.address;
+                        document.getElementById("email").value = localStorage.email;
+                    };
+                </script>
+        </div><!--content-->
+        <div data-role="footer">
+            <br/><!--filler, remove-->
+        </div><!--footer-->
+      </div><!--page-->   
+    </body>
+</html>

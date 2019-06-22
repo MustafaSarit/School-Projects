@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Insert Page Title Here</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <label for="source">How did you hear about us?</label>
+<datalist id="sources">
+    <select name="source">
+        <option>please choose...</option>
+        <option value="television">Television</option>
+        <option value="radio">Radio</option>
+        <option value="newspaper">Newspaper</option>
+        <option>Other</option>
+    </select>
+    If other, please specify:
+</datalist>
+<input id="source" name="source" list="sources">
+  </div>
+
+  <div data-role="footer">
+    <h1>Insert Footer Text Here</h1>
+  </div>
+</div> 
+
+</body>
+</html>

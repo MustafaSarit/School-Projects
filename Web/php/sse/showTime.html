@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Getting server updates</h1>
+<div id="result"></div>
+
+<script>
+if(typeof(EventSource)!=="undefined")
+  {
+  var source=new EventSource("serverTime.php");
+//  source.onerror=function(e) { alert('error: ' + JSON.stringify(e)); };
+  source.addEventListener("time_change", function(event)
+    {
+    document.getElementById("result").innerHTML=event.data;
+    });
+  }
+else
+  {
+  document.getElementById("result").innerHTML="Sorry, your browser does not support server-sent events...";
+  }
+</script>
+
+</body>
+</html>
+
+
